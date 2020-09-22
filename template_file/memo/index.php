@@ -17,7 +17,6 @@
 
 <main>
 <h2>Practice</h2>
-<pre>
 <?php
 // 127.0.0.1 自分自身のサーバ
 // PDO PHPでデータを扱うためのオブジェクト
@@ -28,21 +27,33 @@ try {
 } catch(PDOException $e) {
     echo 'DB接続エラー' . $e->getMessage();
 }
- 
+
 //exec データベースにSQLを発行する
+
 // $count = $db -> exec('INSERT INTO my_items SET maker_id=1, item_name="もも", price=210, keyword="缶詰,ピンク,甘い"');
 // echo $count . '件のデータを挿入しました';
 
 //$recodesのなかにデータベースの内容を入れる
 // queryメゾット　SELECT構文で得られた結果を取得する my_itemsから全てのカラムの値を取得してください
-$recodes = $db->query('SELECT * FROM my_items');
-// fetch 一行ずつ取り出す
-while ($recode = $recodes->fetch()) {
-    print($recode['item_name'] . "\n");
-}
+
+// $recodes = $db->query('SELECT * FROM my_items');
+// // fetch 一行ずつ取り出す
+// while ($recode = $recodes->fetch()) {
+//     print($recode['item_name'] . "\n");
+// }
+
+$memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
 
 ?>
-</pre>
+
+<article>
+    <?php while ($memo = $memos->fetch()): ?>
+        <!-- mb_substr 表示する文字を制限する -->
+        <p><a href="memo.php?id=<?php print($memo['id']) ?>"><?php print(mb_substr($memo['memo'], 0, 50)); ?></a></p>
+        <time><?php print($memo['created_at']); ?></time>
+        <hr>
+    <?php endwhile; ?>
+</article>
 </main>
 </body>    
 </html>
