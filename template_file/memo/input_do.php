@@ -19,18 +19,13 @@
 <h2>Practice</h2>
 <pre>
     <?php
-    try {
-        $db = new PDO('mysql:dbname=mydb;127.0.0.1;charset=utf8', 'root' , 'root');
+   require('dbconnect.php');
 
-        $statement = $db->prepare('INSERT INTO memos SET memo=?, created_at=NOW()');
-        $statement->bindParam(1, $_POST['memo']);
-        $statement->execute();
+    $statement = $db->prepare('INSERT INTO memos SET memo=?, created_at=NOW()');
+    $statement->bindParam(1, $_POST['memo']);
+    $statement->execute();
         
-        echo 'メッセージが登録されました';
-    
-    } catch (PDOException $e) {
-        echo 'DB接続エラー' . $e->getMessage();
-    }
+    echo 'メッセージが登録されました';
     ?>
 </pre>
 </main>

@@ -18,11 +18,7 @@
 <main>
 <h2>Practice</h2>
 <?php
-try {
-    $db = new PDO('mysql:dbname=mydb;127.0.0.1;charset=utf8', 'root', 'root');   
-} catch(PDOException $e) {
-    echo 'DB接続エラー' . $e->getMessage();
-}
+require('dbconnect.php');
 
 //指定されたパラメータ(memo_id)が1以上の数字であるかを判断する
 $id = $_REQUEST['id'];
