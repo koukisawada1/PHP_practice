@@ -19,15 +19,20 @@
 <h2>Practice</h2>
 <pre>
     <?php
-    //メモの内容を編集する
-   require('dbconnect.php');
+    require('dbconnect.php');
 
-    $statement = $db->prepare('UPDATE memos SET memo=? WHERE id=?');
-    $statement->execute(array($_POST['memo'], $_POST['id']));
+    if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
+
+    $id = $_REQUEST['id'];
+
+    $statement = $db->prepare('DELETE FROM memos WHERE id=?');
+    $statement->execute(array($id));
+    }
+        
     ?>
-    メモの内容を変更しました
+    メモを削除しました
 </pre>
-<p><a href="index.php">戻る</p>
+    <a href="index.php">戻る</a>
 </main>
 </body>    
 </html>
